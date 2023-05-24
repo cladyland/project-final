@@ -18,5 +18,13 @@ spring:
             client-secret: ${gitlab_secret}
 
   mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: ${mail_starttls_enable}
+          auth: ${mail_auth}
+    host: ${mail_host}
     username: ${mail_login}
     password: ${mail_password}
+    port: ${mail_port}
