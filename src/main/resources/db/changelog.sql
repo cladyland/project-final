@@ -227,7 +227,13 @@ values ('task', 'Task', 2),
        ('high', 'High', 7),
        ('normal', 'Normal', 7),
        ('low', 'Low', 7),
-       ('neutral', 'Neutral', 7);
+       ('neutral', 'Neutral', 7),
+-- TAG
+       ('backend', 'Backend', 8),
+       ('frontend', 'Frontend', 8),
+       ('test', 'Test', 8),
+       ('feature', 'Feature', 8),
+       ('bug', 'Bug', 8);
 
 insert into REFERENCE (CODE, TITLE, REF_TYPE, AUX)
 -- MAIL_NOTIFICATION

@@ -13,5 +13,6 @@ public enum RefType {
     SPRINT_STATUS,
     USER_TYPE,
     MAIL_NOTIFICATION,
-    PRIORITY
+    PRIORITY,
+    TAG
 }
