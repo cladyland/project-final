@@ -175,6 +175,15 @@ create table USER_ROLE
     constraint FK_USER_ROLE foreign key (USER_ID) references USERS (ID) on delete cascade
 );
 
+create table TASK_TIME
+    (
+        ID bigserial primary key,
+        TASK_ID bigint not null,
+        WORK_TIME varchar,
+        TEST_TIME varchar,
+        constraint FK_TASK_TIME foreign key (TASK_ID) references TASK (ID) on delete cascade
+);
+
 --changeset kmpk:populate_data
 
 insert into USERS (EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, DISPLAY_NAME)
@@ -233,7 +242,9 @@ values ('task', 'Task', 2),
        ('frontend', 'Frontend', 8),
        ('test', 'Test', 8),
        ('feature', 'Feature', 8),
-       ('bug', 'Bug', 8);
+       ('bug', 'Bug', 8),
+       ('dev', 'Dev', 8),
+       ('design', 'Design', 8);
 
 insert into REFERENCE (CODE, TITLE, REF_TYPE, AUX)
 -- MAIL_NOTIFICATION
@@ -270,3 +281,16 @@ INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, st
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (4, 3, 2, 2, 'admin', null, null);
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (5, 4, 2, 2, 'admin', null, null);
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (6, 5, 2, 2, 'admin', null, null);
+
+insert into ACTIVITY (AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE)
+values (2, 4, '2023-04-18 09:08:01.000000', 'in progress'),
+       (2, 3, '2023-04-23 13:26:38.000000', 'in progress'),
+       (2, 4, '2023-04-24 16:43:52.000000', 'ready'),
+       (2, 3, '2023-04-26 18:04:41.000000', 'ready'),
+       (2, 4, '2023-04-29 21:48:13.000000', 'done'),
+       (2, 2, '2023-05-06 11:11:26.000000', 'in progress'),
+       (2, 5, '2023-05-15 15:10:07.000000', 'in progress');
+
+insert into TASK_TIME (TASK_ID, WORK_TIME, TEST_TIME)
+values (3, '3 days, 4 hours, 38 minutes, 3 seconds', null),
+       (4, '6 days, 7 hours, 35 minutes, 51 seconds', '5 days, 5 hours, 4 minutes, 21 seconds');

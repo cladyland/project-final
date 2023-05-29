@@ -13,12 +13,15 @@ import java.util.List;
 public interface TaskMapper extends BaseMapper<Task, TaskTo> {
 
     @Mapping(target = "enabled", expression = "java(task.isEnabled())")
+    @Mapping(target = "activities", ignore = true)
     @Override
     TaskTo toTo(Task task);
 
     @Override
+    @Mapping(target = "activities", ignore = true)
     Task toEntity(TaskTo taskTo);
 
     @Override
+    @Mapping(target = "activities", ignore = true)
     List<TaskTo> toToList(Collection<Task> tasks);
 }
