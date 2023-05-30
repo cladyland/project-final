@@ -73,4 +73,13 @@ public class TaskController {
             eventPublisher.publishEvent(new TaskDoneEvent(taskId));
         }
     }
+
+    @PostMapping("/subscribe")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "subscribe user on task")
+    public void subscribeOnTask(@RequestParam Long userId, @RequestParam Long taskId) {
+        taskService.subscribe(userId, taskId);
+
+        log.debug("user {} subscribed on task {}", userId, taskId);
+    }
 }
