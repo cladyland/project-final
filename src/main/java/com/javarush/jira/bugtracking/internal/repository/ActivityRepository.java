@@ -6,5 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 public interface ActivityRepository extends BaseRepository<Activity> {
-    Activity getByTaskIdAndStatusCode(Long taskId, String statusCode);
+    Activity getFirstByTaskIdAndStatusCode(Long taskId, String statusCode);
+
+    Activity getFirstByTaskIdAndStatusCodeOrderByIdDesc(Long taskId, String statusCode);
 }

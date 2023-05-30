@@ -14,13 +14,11 @@ public class StatusListeners {
 
     @EventListener
     public void ready(TaskReadyEvent event) {
-        String workingTime = timeService.calculateWorkingTime(event.taskId());
-        timeService.createAndAddWorkTime(event.taskId(), workingTime);
+        timeService.calculateAndAddWorkingTime(event.taskId());
     }
 
     @EventListener
     public void done(TaskDoneEvent event) {
-        String readyTime = timeService.calculateTestingTime(event.taskId());
-        timeService.addTestTime(event.taskId(), readyTime);
+        timeService.calculateAndAddTestingTime(event.taskId());
     }
 }

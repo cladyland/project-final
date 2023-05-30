@@ -1,10 +1,8 @@
 package com.javarush.jira.bugtracking.internal.model;
 
+import com.javarush.jira.common.model.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -18,16 +16,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TaskTime {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class TaskTime extends BaseEntity {
     @NotNull
     @OneToOne
     @JoinColumn(name = "task_id")
     private Task task;
 
+    @NotNull
     @Column(name = "work_time")
     private String workingTime;
 

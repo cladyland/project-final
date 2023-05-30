@@ -179,7 +179,7 @@ create table TASK_TIME
     (
         ID bigserial primary key,
         TASK_ID bigint not null,
-        WORK_TIME varchar,
+        WORK_TIME varchar not null,
         TEST_TIME varchar,
         constraint FK_TASK_TIME foreign key (TASK_ID) references TASK (ID) on delete cascade
 );
