@@ -86,7 +86,7 @@ create table contact
 (
        id    bigint       not null,
        code  varchar(32)  not null,
-       value1 varchar(256) not null,
+       value varchar(256) not null,
        primary key (id, code),
        constraint fk_contact_profile foreign key (id) references profile (id) on delete cascade
 );
@@ -253,7 +253,7 @@ values (1, null, null, 49),
        (2, null, null, 14);
 
 delete from contact;
-insert into contact (id, code, value1)
+insert into contact (id, code, value)
 values (1, 'skype', 'userSkype'),
        (1, 'mobile', '+01234567890'),
        (1, 'website', 'user.com'),
