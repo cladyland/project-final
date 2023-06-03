@@ -269,19 +269,33 @@ values (1, 'skype', 'userSkype'),
 
 --changeset kriffer:add_dashboard
 
-INSERT INTO project (id, code, title, description, type_code, startpoint, endpoint, parent_id) VALUES (2, 'task tracker', 'PROJECT-1', 'test project', 'task tracker', null, null, null);
+insert into PROJECT (id, code, title, description, type_code, startpoint, endpoint, parent_id)
+values (2, 'task tracker', 'PROJECT-1', 'test project', 'task tracker', null, null, null);
 
-INSERT INTO sprint (id, status_code, startpoint, endpoint, title, project_id) VALUES (1, 'planning', '2023-04-09 23:05:05.000000', '2023-04-12 23:05:12.000000', 'Sprint-1', 2);
+insert into SPRINT (id, status_code, startpoint, endpoint, title, project_id)
+values (1, 'planning', '2023-04-09 23:05:05.000000', '2023-04-12 23:05:12.000000', 'Sprint-1', 2);
 
-INSERT INTO task (id, title, description, type_code, status_code, priority_code, estimate, updated, project_id, sprint_id, parent_id, startpoint, endpoint) VALUES (2, 'Task-1', 'short test task', 'task', 'in progress', 'high', null, null, 2, 1, null, null, null);
-INSERT INTO task (id, title, description, type_code, status_code, priority_code, estimate, updated, project_id, sprint_id, parent_id, startpoint, endpoint) VALUES (3, 'Task-2', 'test 2 task', 'bug', 'ready', 'normal', null, null, 2, 1, null, null, null);
-INSERT INTO task (id, title, description, type_code, status_code, priority_code, estimate, updated, project_id, sprint_id, parent_id, startpoint, endpoint) VALUES (5, 'Task-4', 'test 4', 'bug', 'in progress', 'normal', null, null, 2, 1, null, null, null);
-INSERT INTO task (id, title, description, type_code, status_code, priority_code, estimate, updated, project_id, sprint_id, parent_id, startpoint, endpoint) VALUES (4, 'Task-3', 'test 3 descr', 'task', 'done', 'low', null, null, 2, 1, null, null, null);
+insert into TASK (id, title, description, type_code, status_code, priority_code, project_id, sprint_id)
+values (2, 'Task-1', 'short test task', 'task', 'in progress', 'high', 2, 1),
+       (3, 'Task-2', 'test 2 task', 'bug', 'ready', 'normal', 2, 1),
+       (5, 'Task-4', 'test 4', 'bug', 'in progress', 'normal', 2, 1),
+       (4, 'Task-3', 'test 3 descr', 'task', 'done', 'low', 2, 1);
+--Backlog
+insert into TASK (id, title, description, type_code, status_code, priority_code, project_id)
+values (6, 'Task-5', 'test 5', 'story', 'backlog', 'low', 2),
+       (7, 'Task-6', 'test 6', 'epic', 'backlog', 'high', 2),
+       (8, 'Task-7', 'test 7', 'story', 'backlog', 'normal', 2),
+       (9, 'Task-8', 'test 8', 'bug', 'backlog', 'normal', 2),
+       (10, 'Task-9', 'test 9', 'task', 'backlog', 'low', 2),
+       (11, 'Task-10', 'test 10', 'epic', 'backlog', 'normal', 2),
+       (12, 'Task-11', 'test 11', 'task', 'backlog', 'high', 2),
+       (13, 'Task-12', 'test 12', 'story', 'backlog', 'low', 2);
 
-INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (3, 2, 2, 2, 'admin', null, null);
-INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (4, 3, 2, 2, 'admin', null, null);
-INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (5, 4, 2, 2, 'admin', null, null);
-INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (6, 5, 2, 2, 'admin', null, null);
+insert into USER_BELONG (id, object_id, object_type, user_id, user_type_code)
+values (3, 2, 2, 2, 'admin'),
+       (4, 3, 2, 2, 'admin'),
+       (5, 4, 2, 2, 'admin'),
+       (6, 5, 2, 2, 'admin');
 
 insert into ACTIVITY (AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE)
 values (2, 4, '2023-04-18 09:08:01.000000', 'in progress'),
