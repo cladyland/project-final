@@ -16,6 +16,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.javarush.jira.bugtracking.WebConstants.BACKLOG;
+import static com.javarush.jira.bugtracking.WebConstants.CURRENT_PAGE;
+import static com.javarush.jira.bugtracking.WebConstants.INDEX;
+import static com.javarush.jira.bugtracking.WebConstants.PAGES;
+import static com.javarush.jira.bugtracking.WebConstants.SIZE;
+import static com.javarush.jira.bugtracking.WebConstants.TASK_MAP;
+
 @Slf4j
 @Controller
 @AllArgsConstructor
@@ -29,8 +36,8 @@ public class DashboardUIController {
         List<TaskTo> tasks = taskService.getAllSprintTasks();
         Map<SprintTo, List<TaskTo>> taskMap = tasks.stream()
                 .collect(Collectors.groupingBy(TaskTo::getSprint));
-        model.addAttribute("taskMap", taskMap);
-        return "index";
+        model.addAttribute(TASK_MAP, taskMap);
+        return INDEX;
     }
 
     @GetMapping("/backlog")
@@ -41,12 +48,12 @@ public class DashboardUIController {
         List<TaskTo> backlog = taskService.getBacklogList(pageNumberOnDB, size);
         List<Integer> pages = getPageNumbers(size);
 
-        model.addAttribute("backlog", backlog);
-        model.addAttribute("pages", pages);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("size", size);
+        model.addAttribute(BACKLOG, backlog);
+        model.addAttribute(PAGES, pages);
+        model.addAttribute(CURRENT_PAGE, page);
+        model.addAttribute(SIZE, size);
 
-        return "backlog";
+        return BACKLOG;
     }
 
     private List<Integer> getPageNumbers(int size) {

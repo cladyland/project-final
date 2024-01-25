@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
+import static com.javarush.jira.bugtracking.WebConstants.DONE;
+import static com.javarush.jira.bugtracking.WebConstants.READY;
+
 @Slf4j
 @Controller
 @RequestMapping(value = TaskController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,9 +70,9 @@ public class TaskController {
         taskService.changeTaskStatus(taskId, status);
         activityService.addTaskStatusActivity(userId, taskId, status);
 
-        if (status.equals("ready")) {
+        if (status.equals(READY)) {
             eventPublisher.publishEvent(new TaskReadyEvent(taskId));
-        } else if (status.equals("done")) {
+        } else if (status.equals(DONE)) {
             eventPublisher.publishEvent(new TaskDoneEvent(taskId));
         }
     }

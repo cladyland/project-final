@@ -9,6 +9,6 @@ import java.util.List;
 public interface TaskTimeRepository extends BaseRepository<TaskTime> {
     TaskTime getByTaskId(Long taskId);
 
-    @Query("select tt from TaskTime tt")
+    @Query("from TaskTime tt")
     List<TaskTime> getAll();
 }

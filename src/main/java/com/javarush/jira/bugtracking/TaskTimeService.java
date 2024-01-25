@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.javarush.jira.bugtracking.WebConstants.DONE;
+import static com.javarush.jira.bugtracking.WebConstants.IN_PROGRESS;
+import static com.javarush.jira.bugtracking.WebConstants.READY;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -26,6 +29,7 @@ public class TaskTimeService {
     static final int SECONDS_IN_ONE_DAY = 86_400;
     static final int SECONDS_IN_ONE_HOUR = 3_600;
     static final int SECONDS_IN_ONE_MINUTE = 60;
+    static final  String TIME_PATTERN = "%d days, %d hours, %d minutes, %d seconds";
 
     private final TaskTimeRepository timeRepository;
     private final TaskRepository taskRepository;
@@ -72,14 +76,14 @@ public class TaskTimeService {
 
     private String calculateWorkingTime(Long taskId) {
         LocalDateTime inProgress = getTaskWorkingStart(taskId);
-        LocalDateTime ready = getTaskLastActivityUpdated(taskId, "ready");
+        LocalDateTime ready = getTaskLastActivityUpdated(taskId, READY);
 
         return calculateTime(durationInSeconds(inProgress, ready));
     }
 
     private String calculateTestingTime(Long taskId, String oldTestingTime) {
-        LocalDateTime ready = getTaskLastActivityUpdated(taskId, "ready");
-        LocalDateTime done = getTaskLastActivityUpdated(taskId, "done");
+        LocalDateTime ready = getTaskLastActivityUpdated(taskId, READY);
+        LocalDateTime done = getTaskLastActivityUpdated(taskId, DONE);
 
         long duration = durationInSeconds(ready, done);
         if (nonNull(oldTestingTime)) {
@@ -91,7 +95,7 @@ public class TaskTimeService {
 
     private LocalDateTime getTaskWorkingStart(Long taskId) {
         return activityRepository
-                .getFirstByTaskIdAndStatusCode(taskId, "in progress")
+                .getFirstByTaskIdAndStatusCode(taskId, IN_PROGRESS)
                 .getUpdated();
     }
 
@@ -124,23 +128,20 @@ public class TaskTimeService {
     }
 
     private String calculateTime(long seconds) {
-        int days = 0;
-        byte hours = 0;
-        byte minutes = 0;
+        int[] units = {SECONDS_IN_ONE_DAY, SECONDS_IN_ONE_HOUR, SECONDS_IN_ONE_MINUTE};
+        int[] results = {0, 0, 0};
 
-        if (seconds >= SECONDS_IN_ONE_DAY) {
-            days = (int) (seconds / SECONDS_IN_ONE_DAY);
-            seconds %= SECONDS_IN_ONE_DAY;
-        }
-        if (seconds >= SECONDS_IN_ONE_HOUR) {
-            hours = (byte) (seconds / SECONDS_IN_ONE_HOUR);
-            seconds %= SECONDS_IN_ONE_HOUR;
-        }
-        if (seconds >= SECONDS_IN_ONE_MINUTE) {
-            minutes = (byte) (seconds / SECONDS_IN_ONE_MINUTE);
-            seconds %= SECONDS_IN_ONE_MINUTE;
+        for (int i = 0; i < units.length; i++) {
+            if (seconds >= units[i]) {
+                results[i] = (int) (seconds / units[i]);
+                seconds %= units[i];
+            }
         }
 
-        return days + " days, " + hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+        int days = results[0];
+        int hours = results[1];
+        int minutes = results[2];
+
+        return String.format(TIME_PATTERN, days, hours, minutes, seconds);
     }
 }

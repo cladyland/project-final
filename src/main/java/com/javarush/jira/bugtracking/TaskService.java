@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.javarush.jira.bugtracking.WebConstants.ADMIN;
+import static com.javarush.jira.bugtracking.WebConstants.USER;
+
 @Service
 @RequiredArgsConstructor
 public class TaskService {
@@ -50,10 +53,9 @@ public class TaskService {
     }
 
     public void subscribe(Long userId, Long taskId) {
-        Set<Role> userRoles = userRepository.getUserRoles(userId);
         //manual check if task existed
         repository.getExisted(taskId);
-        String userTypeCode = userRoles.contains(Role.ADMIN) ? "admin" : "user";
+        String userTypeCode = defineTypeCode(userRepository.getUserRoles(userId));
 
         var userBelong = new UserBelong();
         userBelong.setObjectId(taskId);
@@ -62,6 +64,10 @@ public class TaskService {
         userBelong.setUserTypeCode(userTypeCode);
 
         userBelongRepository.save(userBelong);
+    }
+
+    private String defineTypeCode(Set<Role> userRoles){
+        return userRoles.contains(Role.ADMIN) ? ADMIN : USER;
     }
 
     public void changeTaskStatus(Long taskId, String statusCode) {
