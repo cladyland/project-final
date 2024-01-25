@@ -2,7 +2,7 @@
 
 ## Description:
 JiraRush is a web application which has a similar concept to Jira and Trello.
-This project differs from other JavaRash projects in that it did not have to be 
+This project differs from other JavaRush projects in that it did not have to be 
 written from scratch. The main task was to complete the existing project (not 
 completely, but only "team" tasks), completing the maximum number of tasks.
 
