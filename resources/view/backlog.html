@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!--/*@thymesVar id="authUser" type="com.javarush.jira.login.AuthUser"*/-->
+<!--/*@thymesVar id="backlog" type="java.util.List<com.javarush.jira.bugtracking.to.TaskTo>"*/-->
+<!--/*@thymesVar id="pages" type="java.util.List<java.lang.Integer>"*/-->
+
+<th:block th:replace="~{layout/main::page(title='Backlog list',appMain=~{::appMain})}">
+    <appMain>
+        <h1 th:text="#{backlog.title}"></h1>
+        <div th:each="task: ${backlog}">
+            <div class="card w-50">
+                <div class="card-body">
+                    <h5 class="card-title mb-2 text-muted" style="text-align: left; "
+                        th:text="${task.title}"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; "
+                        th:text="${task.description}"></h6>
+                    <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; "
+                        th:text="${task.typeCode}"></h6>
+                    <h6 class="card-subtitle mb-2 text-muted" style="text-align: left; "
+                        th:text="${task.priorityCode}"></h6>
+                </div>
+            </div>
+        </div>
+        <p/>
+        <div id="paging-buttons">
+            <h6><b>Pages: </b></h6>
+            <span th:each="page: ${pages}">
+                <button th:classappend="${page == currentPage ? 'active-page' : ''}">
+                    <a th:href="@{/backlog(page=${page}, size=${size})}" th:text="${page}"></a>
+                </button>
+            </span>
+        </div>
+        <p/>
+        <div>
+            <form action="/backlog" method="get">
+                <label for="page-size"><b>Count per page:</b></label>
+                <select id="page-size" name="size">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                <button type="submit">ok</button>
+            </form>
+        </div>
+    </appMain>
+</th:block>

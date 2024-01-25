@@ -29,16 +29,16 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <div th:if="${authUser != null && authUser.isAdmin()}">
                     <li class="nav-item menu-item mt-3 mt-lg-0 mb-0 mb-lg-3" id="users">
-                        <a class="nav-link sidebar-nav-link" href="/view/admin/users"><span class="ms-4"><i class="fa-regular fa-folder-open fa-fw me-2"></i>Users</span></a>
+                        <a class="nav-link sidebar-nav-link" href="/view/admin/users"><span class="ms-4"><i class="fa-regular fa-folder-open fa-fw me-2" th:text="#{gen.users}"></i></span></a>
                     </li>
                 </div>
                 <div th:if="${authUser != null && authUser.isAdmin()}">
                     <li class="nav-item menu-item mt-3 mt-lg-0 mb-0 mb-lg-3" id="references">
-                        <a class="nav-link sidebar-nav-link" href="/ui/admin/references"><span class="ms-4"><i class="fa-regular fa-folder-open fa-fw me-2"></i>References</span></a>
+                        <a class="nav-link sidebar-nav-link" href="/ui/admin/references"><span class="ms-4"><i class="fa-regular fa-folder-open fa-fw me-2" th:text="#{gen.references}"></i></span></a>
                     </li>
                 </div>
                 <li class="nav-item menu-item mt-3 mt-lg-0 mb-0 mb-lg-3" id="test1">
-                    <a class="nav-link sidebar-nav-link" href="#test1"><span class="ms-4"><i class="fa-regular fa-folder-open fa-fw me-2"></i>Link_1</span></a>
+                    <a class="nav-link sidebar-nav-link" href="/backlog"><span class="ms-4"><i class="fa-regular fa-folder-open fa-fw me-2"></i>Backlog</span></a>
                 </li>
                 <li class="nav-item menu-item mb-0 mb-lg-3" id="test2">
                     <a class="nav-link sidebar-nav-link" href="#test2"><span class="ms-4"><i class="fa-solid fa-list-check fa-fw me-2"></i>Link_2</span></a>

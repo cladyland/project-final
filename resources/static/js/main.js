@@ -30,3 +30,13 @@ function chooseMenuItem() {
         }
     }
 }
+
+function changeLanguage(locale) {
+    let baseUrl = window.location.href
+    let localeParam = '?lang='
+    if (baseUrl.includes(localeParam)) {
+        let index = (baseUrl + localeParam + locale).indexOf(localeParam)
+        baseUrl = (baseUrl + localeParam + locale).substring(0, index)
+    }
+    window.location.href = baseUrl + localeParam + locale
+}

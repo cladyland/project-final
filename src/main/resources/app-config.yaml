@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: ${db_url}
+    username: ${db_login}
+    password: ${db_password}
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${github_id}
+            client-secret: ${github_secret}
+          google:
+            client-id: ${google_id}
+            client-secret: ${google_secret}
+          gitlab:
+            client-id: ${gitlab_id}
+            client-secret: ${gitlab_secret}
+
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: ${mail_starttls_enable}
+          auth: ${mail_auth}
+    host: ${mail_host}
+    username: ${mail_login}
+    password: ${mail_password}
+    port: ${mail_port}
